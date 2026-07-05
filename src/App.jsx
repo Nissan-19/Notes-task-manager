@@ -13,27 +13,49 @@ function App() {
   })
   const [searchText, setSearchText] = useState("")
   const [filterStatus, setFilterStatus] =  useState("all")
+  const [isEditing, setIsEditing] = useState(false)
+  const [editingTaskId, setEditingTaskId] = useState(null)
+
+
+
 
   useEffect(()=>{
     localStorage.setItem("tasks", JSON.stringify(tasks) )
   },[tasks])
 
   function handleAddTask(event) {
-    event.preventDefault()
+        event.preventDefault()
 
-    if (taskText.trim() === "") {
-      return
-    }
+        if (taskText.trim() === "") {
+          return
+        }
 
-    const newTask = {
-      id: crypto.randomUUID(),
-      text: taskText.trim(),
-      completed: false,
-    }
+        if (isEditing) {
+          const updatedTasks = tasks.map((task) => {
+            if (task.id === editingTaskId) {
+              return { ...task, text: taskText.trim() }
+            }
 
-    setTasks([...tasks, newTask])
-    setTaskText("")
-  }
+            return task
+          })
+
+          setTasks(updatedTasks)
+          setTaskText("")
+          setEditingTaskId(null)
+          setIsEditing(false)
+
+          return
+        }
+
+        const newTask = {
+          id: crypto.randomUUID(),
+          text: taskText.trim(),
+          completed: false,
+        }
+
+        setTasks([...tasks, newTask])
+        setTaskText("")
+}
 
   function handleDeleteTask(id) {
     const updatedTasks = tasks.filter((task) => task.id !== id)
@@ -51,6 +73,12 @@ function App() {
     })
 
     setTasks(updatedTasks)
+  }
+
+  function handleStartEdit(task){
+    setTaskText(task.text)
+    setEditingTaskId(task.id)
+    setIsEditing(true)
   }
 
   const filteredTasks = tasks.filter((task) =>{
@@ -90,7 +118,7 @@ function App() {
           />
 
           <button className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
-            Add Task
+            {isEditing ? "Update Task":"Add task"}
           </button>
         </form>
 
@@ -162,6 +190,14 @@ function App() {
               >
                 Delete
               </button>
+              
+                <button
+                  onClick={() => handleStartEdit(task)}
+                  className="rounded-md bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700 hover:bg-yellow-200"
+                >
+                  Edit
+                </button>
+
             </li>
           ))}
         </ul>
