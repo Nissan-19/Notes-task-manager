@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react"
+import TaskStats from "./components/TaskStats"
+import TaskForm from "./components/TaskForm"
+import SearchAndFilter from "./components/SearchAndFilter"
+import TaskList from "./components/TaskList"
 
 function App() {
   const [taskText, setTaskText] = useState("")
@@ -112,116 +116,35 @@ function App() {
           Add, search, edit, delete, and save your tasks.
         </p>
 
-        <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-  <div className="rounded-lg bg-slate-100 p-3">
-    <p className="text-sm text-slate-500">Total</p>
-    <p className="text-xl font-bold text-slate-800">{totalTasks}</p>
-  </div>
-
-  <div className="rounded-lg bg-slate-100 p-3">
-    <p className="text-sm text-slate-500">Active</p>
-    <p className="text-xl font-bold text-slate-800">{activeTasks}</p>
-  </div>
-
-  <div className="rounded-lg bg-slate-100 p-3">
-    <p className="text-sm text-slate-500">Completed</p>
-    <p className="text-xl font-bold text-slate-800">{completedTasks}</p>
-  </div>
-</div>
-
-        <form onSubmit={handleAddTask} className="mt-6 flex gap-3">
-          <input
-            type="text"
-            placeholder="Enter a task..."
-            value={taskText}
-            onChange={(event) => setTaskText(event.target.value)}
-            className="flex-1 rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
+        <TaskStats
+          totalTasks={totalTasks}
+          activeTasks={activeTasks}
+          completedTasks={completedTasks}
           />
-
-          <button className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
-            {isEditing ? "Update Task":"Add task"}
-          </button>
-        </form>
-
-        <input
-          type="text"
-          placeholder="Search tasks..."
-          value={searchText}
-          onChange={(event) => setSearchText(event.target.value)}
-          className="mt-4 w-full rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
+  
+        <TaskForm
+          taskText={taskText}
+          setTaskText={setTaskText}
+          isEditing={isEditing}
+          handleAddTask={handleAddTask}
         />
-
-        <div className="mt-4 flex gap-2">
-            <button
-              onClick={() => setFilterStatus("all")}
-              className={`rounded-md px-3 py-1 text-sm font-medium ${
-                filterStatus === "all"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-              }`}
-            >
-              All
-            </button>
-
-            <button
-              onClick={() => setFilterStatus("active")}
-              className={`rounded-md px-3 py-1 text-sm font-medium ${
-                filterStatus === "active"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-              }`}
-            >
-              Active
-            </button>
-
-            <button
-              onClick={() => setFilterStatus("completed")}
-              className={`rounded-md px-3 py-1 text-sm font-medium ${
-                filterStatus === "completed"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-              }`}
-            >
-              Completed
-          </button>
-</div>
+        
+        <SearchAndFilter
+          searchText={searchText}
+          setSearchText={setSearchText}
+          filterStatus={filterStatus}
+          setFilterStatus={setFilterStatus}
+        />
+      <TaskList
+        filteredTasks={filteredTasks}
+        handleDeleteTask={handleDeleteTask}
+        handleToggleComplete={handleToggleComplete}
+        handleStartEdit={handleStartEdit}
+        />
 
 
       
-        <ul className="mt-6 space-y-3">
-          {filteredTasks.map((task) => (
-            <li
-              key={task.id}
-              className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-700"
-            >
-              <span
-                onClick={() => handleToggleComplete(task.id)}
-                className={`cursor-pointer ${
-                  task.completed
-                    ? "line-through text-slate-400"
-                    : "text-slate-700"
-                }`}
-              >
-                {task.text}
-              </span>
-
-              <button
-                onClick={() => handleDeleteTask(task.id)}
-                className="rounded-md bg-red-100 px-3 py-1 text-sm font-medium text-red-600 hover:bg-red-200"
-              >
-                Delete
-              </button>
-              
-                <button
-                  onClick={() => handleStartEdit(task)}
-                  className="rounded-md bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700 hover:bg-yellow-200"
-                >
-                  Edit
-                </button>
-
-            </li>
-          ))}
-        </ul>
+        
       </section>
     </main>
   )
