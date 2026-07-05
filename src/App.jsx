@@ -1,9 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function App() {
   const [taskText, setTaskText] = useState("")
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(()=>{
+    const storedTasks = localStorage.getItem("tasks")
+
+    if (storedTasks){
+      return JSON.parse(storedTasks)
+    } else{
+      return[]
+    }
+  })
   const [searchText, setSearchText] = useState("")
+  const [filterStatus, setFilterStatus] =  useState("all")
+
+  useEffect(()=>{
+    localStorage.setItem("tasks", JSON.stringify(tasks) )
+  },[tasks])
 
   function handleAddTask(event) {
     event.preventDefault()
@@ -40,9 +53,21 @@ function App() {
     setTasks(updatedTasks)
   }
 
-  const filteredTasks = tasks.filter((task) =>
-    task.text.toLowerCase().includes(searchText.toLowerCase())
-  )
+  const filteredTasks = tasks.filter((task) =>{
+
+    const matchesSearch = task.text.toLowerCase().includes(searchText.toLowerCase())
+
+    if(filterStatus === "active"){
+      return matchesSearch && task.completed === false
+    }
+
+    if (filterStatus ==="completed"){
+      return matchesSearch && task.completed === true
+    }
+
+    return matchesSearch
+})
+
 
   return (
     <main className="min-h-screen bg-slate-100 p-6">
@@ -77,6 +102,43 @@ function App() {
           className="mt-4 w-full rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
         />
 
+        <div className="mt-4 flex gap-2">
+            <button
+              onClick={() => setFilterStatus("all")}
+              className={`rounded-md px-3 py-1 text-sm font-medium ${
+                filterStatus === "all"
+                  ? "bg-blue-600 text-white"
+                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+              }`}
+            >
+              All
+            </button>
+
+            <button
+              onClick={() => setFilterStatus("active")}
+              className={`rounded-md px-3 py-1 text-sm font-medium ${
+                filterStatus === "active"
+                  ? "bg-blue-600 text-white"
+                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+              }`}
+            >
+              Active
+            </button>
+
+            <button
+              onClick={() => setFilterStatus("completed")}
+              className={`rounded-md px-3 py-1 text-sm font-medium ${
+                filterStatus === "completed"
+                  ? "bg-blue-600 text-white"
+                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+              }`}
+            >
+              Completed
+          </button>
+</div>
+
+
+      
         <ul className="mt-6 space-y-3">
           {filteredTasks.map((task) => (
             <li
