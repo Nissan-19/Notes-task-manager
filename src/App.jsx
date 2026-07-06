@@ -96,6 +96,10 @@ function App() {
     setTasks(activeTasksOnly)
   }
 
+  function handleClearAll(){
+    setTasks([])
+  }
+
   const filteredTasks = tasks.filter((task) =>{
 
     const matchesSearch = task.text.toLowerCase().includes(searchText.toLowerCase())
@@ -153,6 +157,7 @@ function App() {
         handleToggleComplete={handleToggleComplete}
         handleStartEdit={handleStartEdit}
         handleClearCompleted={handleClearCompleted}
+        handleClearAll={handleClearAll}
         />
 
 
