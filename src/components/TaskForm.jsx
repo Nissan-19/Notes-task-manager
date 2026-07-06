@@ -3,7 +3,7 @@ import React from 'react'
 function TaskForm  ({taskText, isEditing, handleAddTask, setTaskText, handleCancelEdit})  {
   return (
     <div>
-      <form onSubmit={handleAddTask} className="mt-6 flex gap-3">
+      <form onSubmit={handleAddTask} className="mt-6 flex-col gap-3 sm:flex-row">
           <input
             type="text"
             placeholder="Enter a task..."

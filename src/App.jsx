@@ -121,7 +121,7 @@ function App() {
 
 
   return (
-    <main className="min-h-screen bg-slate-100 p-6">
+    <main className="min-h-screen bg-slate-100 p-6 sm:p-6">
       <section className="mx-auto max-w-2xl rounded-xl bg-white p-6 shadow">
         <h1 className="text-3xl font-bold text-slate-800">
           Notes Task Manager

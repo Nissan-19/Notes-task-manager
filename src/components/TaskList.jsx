@@ -32,7 +32,7 @@ function TaskList  ({filteredTasks, handleDeleteTask, handleStartEdit, handleTog
       {filteredTasks.map((task) => (
         <li
           key={task.id}
-          className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-700"
+          className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-700 sm:flex-row sm:items-center sm:justify-between"
         >
           <span
             onClick={() => handleToggleComplete(task.id)}
@@ -45,7 +45,7 @@ function TaskList  ({filteredTasks, handleDeleteTask, handleStartEdit, handleTog
             {task.text}
           </span>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 self-end sm:self-auto">
             <button
               onClick={() => handleStartEdit(task)}
               className="rounded-md bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700 hover:bg-yellow-200"
