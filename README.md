@@ -1,16 +1,67 @@
-# React + Vite
+# Notes Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Tailwind CSS task management app where users can add, edit, delete, search, filter, complete, and save tasks using localStorage.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Add new tasks
+- Edit existing tasks
+- Delete tasks
+- Mark tasks as complete or incomplete
+- Search tasks
+- Filter tasks by:
+  - All
+  - Active
+  - Completed
+- Show task counts:
+  - Total tasks
+  - Active tasks
+  - Completed tasks
+- Clear completed tasks
+- Clear all tasks
+- Save tasks to localStorage
+- Responsive design using Tailwind CSS
+- Component-based React structure
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript
+- Tailwind CSS
+- Vite
+- localStorage
 
-## Expanding the ESLint configuration
+## What I Learned
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+While building this project, I practiced:
+
+- React state management with `useState`
+- Side effects with `useEffect`
+- Controlled inputs
+- Adding, editing, deleting, and updating items in an array
+- Using `map()`, `filter()`, and conditional rendering
+- Saving and loading data with localStorage
+- Splitting UI into reusable components
+- Passing data and functions through props
+- Styling with Tailwind CSS
+- Creating responsive layouts
+
+## Project Structure
+
+```txt
+src/
+├── components/
+│   ├── TaskStats.jsx
+│   ├── TaskForm.jsx
+│   ├── SearchAndFilter.jsx
+│   └── TaskList.jsx
+├── App.jsx
+├── main.jsx
+└── index.css
+
+Future Improvements
+Add task priority
+Add due dates
+Add categories
+Add dark mode
+Add drag-and-drop task sorting
