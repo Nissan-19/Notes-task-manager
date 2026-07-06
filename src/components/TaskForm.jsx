@@ -3,7 +3,7 @@ import React from 'react'
 function TaskForm  ({taskText, isEditing, handleAddTask, setTaskText, handleCancelEdit})  {
   return (
     <div>
-      <form onSubmit={handleAddTask} className="mt-6 flex-col gap-3 sm:flex-row">
+      <form onSubmit={handleAddTask} className="mt-6 flex flex-col gap-3 sm:flex-row">
           <input
             type="text"
             placeholder="Enter a task..."
@@ -12,7 +12,9 @@ function TaskForm  ({taskText, isEditing, handleAddTask, setTaskText, handleCanc
             className="flex-1 rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500"
           />
 
-          <button className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
+          <button
+            type='submit' 
+            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
             {isEditing ? "Update Task":"Add task"}
           </button>
           {isEditing && (
