@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TaskList  ({filteredTasks, handleDeleteTask, handleStartEdit, handleToggleComplete})  {
+function TaskList  ({filteredTasks, handleDeleteTask, handleStartEdit, handleToggleComplete, handleClearCompleted})  {
 
     if (filteredTasks.length === 0) {
         return (
@@ -13,9 +13,17 @@ function TaskList  ({filteredTasks, handleDeleteTask, handleStartEdit, handleTog
   return (
     <div>
 
+      <div className="mt-6 flex justify-end">
+      <button
+        onClick={handleClearCompleted}
+        className="rounded-md bg-slate-200 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-300"
+      >
+        Clear Completed
+      </button>
+    </div>
             
 
-      <ul className="mt-6 space-y-3">
+      <ul className="mt- space-y-3">
           {filteredTasks.map((task) => (
             <li
               key={task.id}

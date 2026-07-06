@@ -43,10 +43,10 @@ function App() {
             return task
           })
 
-          setTasks(updatedTasks)
-          setTaskText("")
-          setEditingTaskId(null)
-          setIsEditing(false)
+            setTasks(updatedTasks)
+            setTaskText("")
+            setEditingTaskId(null)
+            setIsEditing(false)
 
           return
         }
@@ -83,6 +83,17 @@ function App() {
     setTaskText(task.text)
     setEditingTaskId(task.id)
     setIsEditing(true)
+  }
+
+  function handleCancelEdit (){
+    setTaskText("")
+    setEditingTaskId(null)
+    setIsEditing(false)
+  }
+
+  function handleClearCompleted(){
+    const activeTasksOnly = tasks.filter((task)=> task.completed===false)
+    setTasks(activeTasksOnly)
   }
 
   const filteredTasks = tasks.filter((task) =>{
@@ -127,6 +138,7 @@ function App() {
           setTaskText={setTaskText}
           isEditing={isEditing}
           handleAddTask={handleAddTask}
+          handleCancelEdit={handleCancelEdit}
         />
         
         <SearchAndFilter
@@ -140,6 +152,7 @@ function App() {
         handleDeleteTask={handleDeleteTask}
         handleToggleComplete={handleToggleComplete}
         handleStartEdit={handleStartEdit}
+        handleClearCompleted={handleClearCompleted}
         />
 
 
